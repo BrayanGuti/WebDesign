@@ -1,0 +1,211 @@
+:root{
+   /*Colores*/
+    --primario: #9c27b0;
+    --primario_oscuro: #891190;
+    --secundario: #ffce00;
+    -secundario_oscuro: rgb(233,287,2);
+    --blanco: #fff;
+    --negro: #000;  
+
+    /*funete*/
+    --fuenteprincipal: 'Staatliches', cursive;
+}
+
+/*Hacer esto en todos los proyectos*/
+html {
+    box-sizing: border-box;
+    font-size: 62.5%;
+}
+*, *:before, *:after {
+    box-sizing: inherit;
+}
+/*Hacer esto en todos los proyectos*/
+
+
+/*Globales*/
+body{
+    background-color: var(--primario);
+    font-size: 1.6rem;
+    line-height: 1.5;                       /*Interlineado*/
+    font-family: var(--fuenteprincipal);
+}
+
+p{
+    font-size: 1.8rem;
+    font-family: Arial, Helvetica, sans-serif;
+    color: var(--blanco);
+}
+a{
+    text-decoration: none;
+}
+
+img{
+    max-width: 100%;
+}
+
+.contenedor{
+    max-width: 120rem;
+    margin: 0 auto;
+}
+
+h1, h2, h3{
+    text-align: center;
+    color: var(--secundario);
+    font-family: var(--fuenteprincipal);
+    text-transform: uppercase;
+}
+
+h1{
+    font-size: 4rem;
+    font-weight: 300;
+}
+
+h2{
+    font-size: 3.2rem;
+}
+
+h3{
+    font-size: 2.4rem;
+}
+
+/*Elementos*/
+
+/*header*/
+.header{
+    display: flex;
+    justify-content: center;
+}
+
+.header__logo{
+    margin: 3rem 0;
+}
+
+/*navegacion*/
+.navegacion{
+    background-color: var(--primario_oscuro);
+    padding: 1rem;
+    display: flex;
+    justify-content: center;
+    gap: 2rem; /*genera un espacio entre los elementos del flexbox*/
+}
+.navegacion__enlace{
+    font-family: var(--fuenteprincipal);
+    color: var(--blanco);
+    font-size: 3rem;
+}
+
+.navegacion__enlace--activo,
+.navegacion__enlace:hover{
+    color: var(--secundario);
+}
+
+/*footer*/
+
+.footer{
+    background-color: var(--primario_oscuro);
+    padding: 1rem 0;
+    margin-top: 2rem;
+}
+
+.footer__text{
+    text-align: center;
+    font-family: var(--fuenteprincipal);
+    font-size: 2.2rem;
+}
+
+/*grid*/
+.grid{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+}
+
+@media (min-width: 768px) {
+   .grid{
+        grid-template-columns: repeat(3, 1fr);
+   }
+}
+
+/*productos*/
+
+.producto{
+    background-color: var(--primario_oscuro);
+    padding: 1rem;
+}
+
+.producto__imagen{
+    width: 100%;
+}
+
+.producto__nombre{
+    font-size: 4rem;
+}
+
+.producto__precio{
+    font-size: 2.8rem;
+    color: var(--secundario);
+}
+
+.producto__nombre, 
+.producto__precio{
+    font-family: var(--fuenteprincipal);
+    margin: 1rem auto;
+    text-align: center;
+    line-height: 1;
+}
+
+/*graficos*/
+.grafico{
+    min-height: 30rem;
+    background-repeat: no-repeat; /*hace que la imagen no se repita*/
+    background-size: cover; /*hace que la imgaen cubra todo el ancho posible*/
+    grid-column: 1/3;
+}
+
+.grafico--camisas{
+    grid-row: 2/3 ;
+    background-image: url(../img/grafico1.jpg);      
+}
+
+.grafico--node{
+    background-image:  url(../img/grafico2.jpg);
+    grid-row: 8/9;   
+}
+@media (min-width: 768px) {
+    .grafico--node{
+        grid-row: 5/6 ;
+        grid-column: 2/4;
+       
+    }
+}
+
+/*PAGINA NOSOTROS*/
+
+.grid__nosotros{
+    display: flex;
+    flex-direction: column;
+}
+
+@media (min-width: 768px) {
+    .grid__nosotros{
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 4rem;
+    }
+}
+
+
+.grid__nosotros__img{
+    background-image: url(../img/nosotros.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-radius: 2.5%;
+    width: 100%;
+}
+
+@media (min-width: 768px) {
+    .grid__nosotros__img{
+        grid-column: 2/3;
+        grid-row: 1/2;
+    }
+}

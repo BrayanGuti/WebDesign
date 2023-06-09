@@ -181,31 +181,28 @@ h3{
 
 /*PAGINA NOSOTROS*/
 
-.grid__nosotros{
-    display: flex;
-    flex-direction: column;
-}
+.nosotros{
+    display: grid;
+    row-gap: 2rem;      /*Genera un gap entre rows*/
+}   
 
 @media (min-width: 768px) {
-    .grid__nosotros{
-        display: grid;
+    .nosotros{
         grid-template-columns: repeat(2, 1fr);
-        gap: 4rem;
+        gap: 4rem; /*Genera un gap en todos los sentidos dentro de cada celda del grid*/
     }
 }
 
-
-.grid__nosotros__img{
-    background-image: url(../img/nosotros.jpg);
-    background-repeat: no-repeat;
-    background-size: cover;
+.nosotros__img{
     border-radius: 2.5%;
     width: 100%;
+    
 }
 
 @media (min-width: 768px) {
-    .grid__nosotros__img{
+    .nosotros__img{
         grid-column: 2/3;
         grid-row: 1/2;
     }
 }
+

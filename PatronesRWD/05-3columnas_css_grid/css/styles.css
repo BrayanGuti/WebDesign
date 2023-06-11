@@ -1,0 +1,84 @@
+html {
+    box-sizing: border-box;
+    font-size: 62.5%;
+}
+
+*,
+*:before,
+*:after {
+    box-sizing: inherit;
+}
+
+body {
+    font-family: 'Raleway', sans-serif;
+    font-size: 1.6rem;
+    line-height: 2;
+}
+
+img {
+    max-width: 100%;
+}
+
+h1 {
+    font-size: 4rem;
+}
+
+h2 {
+    font-size: 3.2rem;
+}
+
+.contenedor {
+    max-width: 1200px;
+    width: 95%;
+    margin: 0 auto;
+}
+
+p {
+    font-size: 2rem;
+}
+
+.entrada-blog a {
+    display: inline-block;
+    background-color: #2196F3;
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+
+/** CODIGO AQUI **/
+
+
+
+@media (min-width: 768px) {
+    .contenedor__grid{
+        display: grid;
+        grid-template-columns: 20% 60% 20%;
+        column-gap: 2rem;
+        
+        grid-template-areas: "izquierda contenido derecha";
+
+        grid-template-rows: 1;
+        grid-auto-flow: column; /* Define el flujo en que el grid acomoda el contenido (en este caso columnas*/
+         
+        
+    }
+    .main{
+        grid-area: contenido;
+        /* grid-column: 2/3; */
+    }
+ 
+    .aside1{
+        grid-area: izquierda;
+        /* grid-column: 1/2; */
+    }
+    
+    .aside2{
+        grid-area: derecha;
+        /* grid-column: 3/4; */
+    }
+}
+
+

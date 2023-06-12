@@ -1,0 +1,109 @@
+:root{
+   --fontHeading: 'PT Sans', sans-serif;
+   --fuenteParrafos: 'Open Sans', sans-serif;
+
+    --primario: #784d3c;
+    --blanco: #ffffff;
+    --negro: #000000;
+
+
+
+}
+
+html{
+    box-sizing: border-box;
+    font-size: 62.5%;
+}
+
+*, *:before, *:after {
+    box-sizing: inherit;
+}
+
+body{
+    font-family: var(--fuenteParrafos);
+    font-size: 1.6rem;
+    line-height: 2;
+}
+
+/*Globales*/
+
+h1{
+    font-size: 5rem;
+}
+
+h2{
+    color: var(--blanco);
+}
+
+p{
+    font-family: var(--fuenteParrafos);
+}
+
+.head{
+    background-image: url(..//img/banner.jpg);
+    height: 60rem;
+    background-size: cover; /*hace que cubra todo el espacio disponible */
+    background-position: center center; /* hace que la imgan de fondo crezca y decrezca desde el centro el primer parametro es horizontal
+                                            y el otro vertical tambien existe left/right botton/top porcentajes rem*/
+    background-repeat: no-repeat;
+   
+}
+.head__titulos{
+    width: 100%;
+    height: 20%;
+
+    display: flex;
+    justify-content: space-between;
+    padding: 0 20%;
+}
+
+.head__logo{
+    color: #ffffff;
+    font-family: var(--fontHeading);
+    font-weight: 400;
+}
+
+.head__titulos h1 span{
+    font-weight: 700;
+}
+
+
+.contenedor{
+    max-width: 120rem;
+    width: 90%;   
+}
+
+.head__nav{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    padding-top: 4rem;
+    column-gap: 1rem;
+}
+
+.head__nav a{
+    color: var(--blanco);
+    font-family: var(--fuenteParrafos);
+    text-decoration: none;
+    margin: 0 auto;
+}
+
+.head__titulosCentro{
+    margin: 12rem auto;
+    max-width: 70rem;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.head__centro{
+    font-size: 3.7rem;
+    line-height: 1;
+}
+
+.head__centroAbajo{
+    font-weight: 100;
+    font-size: 1.7rem;
+    margin: 0 0;
+    line-height: 1;
+}

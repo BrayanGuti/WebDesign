@@ -1,0 +1,69 @@
+/* Para todos la gran mayoria de proyectos */
+
+
+1. usar normilize
+
+2. En la hoja de estilos "style.css" crear el root del proyecto (definir colores fuentes a usar). Ejemplo:
+
+
+////
+
+:root{
+   -fontHeading: 'PT Sans', sans-serif;
+   -fuenteParrafos: 'Open Sans', sans-serif;
+
+    --primario: #784d3c;
+    --blanco: #ffffff;
+    --negro: #000000;
+}
+
+////
+
+
+3. Despues del root usar las siguientes lineas de codigo:
+
+
+////
+
+html{
+    box-sizing: border-box;  	/*El border y padding no afecte el ancho de nuestros elementos*/
+    font-size: 62.5%;		/*Esto permite que un 1rem sea igual a 10px */
+}
+
+*, *:before, *:after {
+    box-sizing: inherit;	/*El border y padding no afecte el ancho de nuestros elementos*/
+}
+
+////
+
+
+4. Luego definir clases primales y esenciales como por ejemplo:
+
+
+////
+
+body{
+
+}
+
+header{
+
+}
+
+h1{
+
+}
+
+h2 {
+
+}
+
+h3{
+
+}
+
+p{
+
+}
+
+////

@@ -71,11 +71,9 @@ p{
     color: #ffffff;
     font-family: var(--fontHeading);
     font-weight: 400;
-}
-
-.head__titulos h1{
     margin: 0;
 }
+
 
 .head__titulos h1 span{
     font-weight: 700;
@@ -116,12 +114,10 @@ p{
 }
 
 .head__titulosCentro{
-    margin: 0 auto;
-
+    margin: 0 1rem;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
     gap: 1.4rem;
 }
 
@@ -134,18 +130,27 @@ p{
         flex-direction: column;
         align-items: center;
         gap: 1.4rem;
+       
     }
 }
 
 .head__centro{
+    text-align: center;
     font-size: 3.7rem;
     line-height: 1;
-    margin: 0 0;
+    margin: 0;
 }
 
 .head__centroAbajo{
+    text-align: center;
     font-weight: 100;
     font-size: 1.7rem;
     margin: 0 0;
     line-height: 1;
+}
+
+.main{
+    width: min(120rem, 95%);
+    margin: 0 auto;
+    
 }

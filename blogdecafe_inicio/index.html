@@ -4,9 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <link rel="stylesheet" href="css/normalize.css">
-    <link rel="stylesheet" href="css/style.css">
-    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
@@ -14,6 +11,20 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=PT+Sans:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- prefecth -->
+    
+    <!-- Esto carga otra pagina desde esta misma pagina -->
+    <link rel="prefecth" href="nosotros.html" as="document" >  
+
+    <!-- preload -->
+
+    <link rel="preload" href="css/normalize.css" as="style">
+    <link rel="stylesheet" href="css/normalize.css">
+
+
+    <link rel="preload" href="css/style.css" as="style">
+    <link rel="stylesheet" href="css/style.css">
     
     <title>Blog de cafe</title>
 </head>
@@ -61,7 +72,7 @@
 
                 <section class="mainIndex__secciones">
                     <h3>Nuesto Blog</h3>
-                    <img src="img/blog1.jpg" class="">
+                    <img loading="lazy"  src="img/blog1.jpg" class="">
                     
                     <div>
                         <h3>Tipos de Granos</h3>
@@ -73,7 +84,7 @@
                 </section>
 
                 <section class="mainIndex__secciones">
-                    <img src="img/blog2.jpg" alt="">
+                    <img loading="lazy" src="img/blog2.jpg" alt="">
                     <h3>3 Deliciosas Recetas de Café</h3>
                     <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolores molestiae nostrum ea hic fugit quod adipisci non necessitatibus accusamus sequi repellendus alias deleniti est mollitia quis laudantium praesentium, optio facilis?</p>
                     <a class="boton"  href="entrada.html">
@@ -82,7 +93,7 @@
                 </section>
 
                 <section style="margin-bottom: 5rem;">
-                    <img src="img/blog3.jpg" alt="">
+                    <img loading="lazy" src="img/blog3.jpg" alt="">
                     <h3>Beneficios del Café</h3>
                     <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Possimus distinctio accusamus natus suscipit minima, aperiam nobis tenetur, similique deserunt cupiditate non qui. Facilis voluptatum mollitia magnam reprehenderit cupiditate saepe voluptatibus!</p>
                     <a class="boton"  href="entrada.html">

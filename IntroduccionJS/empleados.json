@@ -1,0 +1,24 @@
+{
+    "empleados":[
+        {
+            "id":1,
+            "nombre":"John",
+            "apellido":"McKinley",
+            "salario":1000000
+        },
+        {
+            "id":2,
+            "nombre":"pedro",
+            "apellido":"juancho",
+            "salario":1328900
+        },
+        {
+            "id":3,
+            "nombre":"John",
+            "apellido":"juancho",
+            "salario":1328900
+        }
+
+        
+    ]
+}

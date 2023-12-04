@@ -1,4 +1,4 @@
-:root{
+    :root{
     --fuentePrimaria: 'Roboto Slab', serif;
     --fuenteSecundaria: 'Russo One', sans-serif;
  
@@ -12,7 +12,7 @@
 html{
     box-sizing: border-box;  	/*El border y padding no afecte el ancho de nuestros elementos*/
     font-size: 62.5%;		/*Esto permite que un 1rem sea igual a 10px */
-    background-color: #006400;    
+      
 }
 
 *, *:before, *:after {
@@ -20,7 +20,6 @@ html{
 }
 
 body{
-
 }
 
 header{
@@ -64,10 +63,20 @@ p{
 }
 
 .header__contenedor-2{
-    margin: .5rem;
     flex-basis: calc(20%);
     background-image: url(/img/peon.png);
 }
+
+/* main */
+
+.contenedor{
+    max-width: 120rem;
+    width: 90%;
+    margin: 0 auto;
+    border-color: #006400;
+    border-style: solid;
+}
+
 
 /* footer */
 
@@ -85,17 +94,24 @@ p{
 .footer__contenedor-1{
     padding: 2rem;
     text-align: left;
-    flex-basis: calc(50%);    
+    flex-basis: calc(60%);    
 }
 
 .footer__contenedor-2{
-    flex-basis: calc(30%);
+    flex-basis: calc(20%);
     display: flex;
+    align-items: center;
+    justify-content: center;
     gap: 1rem;
 }
 
-
+.LinKedIn{
+    height: 7rem;
+    width: 7rem;
+    padding: 1rem;
+}
 /* Ayudas */
+
 
 .icons{
     height: 6rem;

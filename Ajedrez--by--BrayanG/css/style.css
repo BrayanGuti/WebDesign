@@ -1,0 +1,115 @@
+:root{
+    --fuentePrimaria: 'Roboto Slab', serif;
+    --fuenteSecundaria: 'Russo One', sans-serif;
+ 
+     --BeigeClaro: #F0D9B5;
+     --verdeOcuro: #006400;
+     --blanco: #ffffff;
+     --negro: #000000;
+ }
+ 
+
+html{
+    box-sizing: border-box;  	/*El border y padding no afecte el ancho de nuestros elementos*/
+    font-size: 62.5%;		/*Esto permite que un 1rem sea igual a 10px */
+    background-color: #006400;    
+}
+
+*, *:before, *:after {
+    box-sizing: inherit;	/*El border y padding no afecte el ancho de nuestros elementos*/
+}
+
+body{
+
+}
+
+header{
+
+}
+
+
+
+H1{
+    font-size: 3rem;
+}
+
+h1, h2{
+    margin: 0;
+    padding: 1rem;
+    font-family: var(--fuentePrimaria);
+    color: var(--negro);
+}
+
+
+h3{
+
+}
+
+p{
+
+}
+
+.header__contenedor{
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    justify-content: center;
+}    
+
+.header__contenedor-1{
+    padding: 2rem;
+    text-align: left;
+    flex-basis: calc(60%);
+}
+
+.header__contenedor-2{
+    margin: .5rem;
+    flex-basis: calc(20%);
+    background-image: url(/img/peon.png);
+}
+
+/* footer */
+
+.footer__contenedor{
+    display: flex;
+    background-color: var(--blanco);
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+
+.footer__contenedor-1{
+    padding: 2rem;
+    text-align: left;
+    flex-basis: calc(50%);    
+}
+
+.footer__contenedor-2{
+    flex-basis: calc(30%);
+    display: flex;
+    gap: 1rem;
+}
+
+
+/* Ayudas */
+
+.icons{
+    height: 6rem;
+    width: 6rem;
+    padding: 1rem;
+}
+
+.background_images{
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
+.links{
+    width: 0rem;
+    height: 0rem;
+}

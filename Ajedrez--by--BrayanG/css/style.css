@@ -19,12 +19,21 @@ html{
     box-sizing: inherit;	/*El border y padding no afecte el ancho de nuestros elementos*/
 }
 
+
+
 body{
-}
-
-header{
-
-}
+    min-height: 100vh;
+    margin: 0; 
+    
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+  }
+  
+  header{ 
+  }
+  
+  footer{ 
+  }
 
 
 
@@ -54,6 +63,7 @@ p{
     flex-direction: row;
     gap: 1rem;
     justify-content: center;
+    border-bottom: 2px solid black; 
 }    
 
 .header__contenedor-1{
@@ -70,25 +80,31 @@ p{
 /* main */
 
 .contenedor{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    justify-items: center;
+    align-items: center;
+    gap: 2rem;
     max-width: 120rem;
     width: 90%;
     margin: 0 auto;
-    border-color: #006400;
-    border-style: solid;
+    height: 100%;
+    /* border-style: solid; */
 }
 
 
 /* footer */
 
-.footer__contenedor{
+
+
+.footer{
     display: flex;
     background-color: var(--blanco);
-    position: absolute;
-    bottom: 0;
     width: 100%;
     justify-content: center;
     align-items: center;
     gap: 1rem;
+    border-top: 2px solid black; 
 }
 
 .footer__contenedor-1{
@@ -123,9 +139,4 @@ p{
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center center;
-}
-
-.links{
-    width: 0rem;
-    height: 0rem;
 }

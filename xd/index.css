@@ -1,0 +1,36 @@
+:root{
+    --fuentePrimaria: 'Roboto Slab', serif;
+    --fuenteSecundaria: 'Russo One', sans-serif;
+ 
+     --BeigeClaro: #F0D9B5;
+     --verdeOcuro: #006400;
+     --blanco: #ffffff;
+     --negro: #000000;
+ }
+ 
+
+
+body{
+    height: max-content;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+}
+
+.header__contenedor{
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    justify-content: center;
+}    
+
+.header__contenedor-1{
+    padding: 2rem;
+    text-align: left;
+    flex-basis: calc(60%);
+}
+
+.header__contenedor-2{
+    flex-basis: calc(20%);
+    background-image: url(./img/peon.png);
+}

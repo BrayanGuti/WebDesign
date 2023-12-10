@@ -1,3 +1,4 @@
+
     :root{
     --fuentePrimaria: 'Roboto Slab', serif;
     --fuenteSecundaria: 'Russo One', sans-serif;
@@ -29,11 +30,6 @@ body{
     grid-template-rows: auto 1fr auto;
   }
   
-  header{ 
-  }
-  
-  footer{ 
-  }
 
 
 
@@ -54,7 +50,6 @@ h3{
 }
 
 p{
-
 }
 
 .header__contenedor{
@@ -67,7 +62,7 @@ p{
 }    
 
 .header__contenedor-1{
-    padding: 2rem;
+    padding: 1.5rem;
     text-align: left;
     flex-basis: calc(60%);
 }
@@ -80,18 +75,28 @@ p{
 /* main */
 
 .contenedor{
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    justify-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     align-items: center;
     gap: 2rem;
     max-width: 120rem;
     width: 90%;
     margin: 0 auto;
     height: 100%;
-    /* border-style: solid; */
 }
 
+@media (min-width: 768px) { 
+    .contenedor{
+        display: grid;
+        grid-template-columns: 3fr 2fr ;
+        justify-items: center;
+        justify-content: center;
+        align-items: center;
+        gap: 2rem;
+       
+    }       
+ }
 
 /* footer */
 
@@ -108,7 +113,6 @@ p{
 }
 
 .footer__contenedor-1{
-    padding: 2rem;
     text-align: left;
     flex-basis: calc(60%);    
 }
@@ -139,4 +143,10 @@ p{
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center center;
+}
+
+.sus{
+    background-color: #006400;
+    height: 100%;
+    width: 100%;
 }

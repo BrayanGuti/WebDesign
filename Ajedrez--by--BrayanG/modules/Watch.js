@@ -1,6 +1,7 @@
-export class State {
-    constructor() {
-        this.state = 0;
+export class Watch {
+    constructor(chessBoard) {
+        this.chessBoard = chessBoard;
+        console.log(this.chessBoard);
     }
     neutral(){
         this.state = 0;

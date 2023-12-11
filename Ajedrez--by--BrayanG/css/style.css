@@ -46,7 +46,7 @@ h1, h2{
 
 
 h3{
-
+    
 }
 
 p{
@@ -97,6 +97,15 @@ p{
        
     }       
  }
+ 
+.selection{
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    padding: .5rem;
+}
 
 /* footer */
 

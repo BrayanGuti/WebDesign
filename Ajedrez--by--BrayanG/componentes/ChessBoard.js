@@ -1,5 +1,6 @@
 import { State } from "../modules/State.js";
 import { Turn } from "../modules/Turn.js";
+import { Watch } from "../modules/Watch.js";
 
 import "./ChessCells.js";
 
@@ -28,6 +29,7 @@ class ChessBoard extends HTMLElement {
         --azulClaro: #276E90;
         --negro: #000000;
       }
+
 
       .sombra{
         display: flex;
@@ -141,7 +143,7 @@ class ChessBoard extends HTMLElement {
   // EVENTS
   onClicks(cell) {
     const piece = cell.shadowRoot.querySelector("chess-pieces");
-    
+
     if (this.State.state === 0 && piece && piece.piece[0] === this.Turn.turn) {
       this.selectedPiece = piece;
       this.selectedPiece.classList.add("selected");
@@ -155,78 +157,277 @@ class ChessBoard extends HTMLElement {
       this.State.neutral();
     
     }else if (this.State.state === 1) {
-      if (!piece) {
+      if(this.TargetCell.includes(cell.shadowRoot.querySelector(".celda"))) {
         this.movePieces(cell.shadowRoot.querySelector(".celda"));
-      } else {
+
+      } else if(piece && piece.piece[0] === this.Turn.turn) {
         this.clearObjectiveCells();
         this.selectedPiece.classList.remove("selected");
         this.selectedPiece = piece;
         this.showPosition(piece, cell);
         this.selectedPiece.classList.add("selected");
       }
+    }else if(this.State.state === 2 && this.selection.contains(cell)){
+      console.log(this.selectedPiece);
+      this.selectedPiece.innerHTML = /* html */`<chess-pieces piece="${piece.piece}"></chess-pieces>`;
+      this.selection.remove();
+      this.selection = null;
+      this.State.neutral();   
+      this.selectedPiece = null;
     }
   }
-  
-  clearObjectiveCells() {
-    this.TargetCell.forEach(cell => {
-      const objective = cell.querySelector("div");
-      cell.removeChild(objective);
-      if(cell.underAttack){
-        cell.classList.remove("underAttack");
-        cell.underAttack = false;
-      }
-    });
-  }
 
-  showPosition(chessPiece, cell) {
+  showPosition(chessPiece, cell, watch = false) {
     const color = chessPiece.piece[0];
     const piece = chessPiece.piece[1];
     const row = cell.getAttribute("place")[0];
     const column = cell.getAttribute("place")[1];
-    this.TargetCell = [];
+    if(!watch){
+      this.TargetCell = [];
+    }
     
+
+    
+    
+   
 
     if (piece === "p") {    
+      // advance
       let direction = (color === "b") ? -1 : 1;
       let advance = (parseInt(column) + direction).toString();
-      const cellAdvance = this.getCell(row + advance);
-      this.addTargetCell(cellAdvance);
       
-      // firstMove
-      if ((column === "2" && direction === 1) || (column === "7" && direction === -1)) {
-        const cellAdvance2 = this.getCell(row + (parseInt(advance) + direction).toString() );
-        this.addTargetCell(cellAdvance2);
+      if(!watch){
+        
+        const cellAdvance = this.getCell(row + advance);
+        this.addTargetCell(cellAdvance);
+      
+        // firstMove
+        if (((column === "2" && direction === 1) || (column === "7" && direction === -1)) && (cellAdvance.querySelector("chess-pieces") === null)) {
+          const cellAdvance2 = this.getCell(row + (parseInt(advance) + direction).toString() );
+          this.addTargetCell(cellAdvance2);
+        }
+
       }
+      
     
+      // attack
       for (let i = -1; i < 2; i += 2) {
         const coords = this.shiftedLetter(row, i) + advance;
-        const cellUnderAttack = this.getCell(coords);
-        
-        this.addTargetCell(cellUnderAttack, true);
-        
-          
-        
-
+        if(coords[0] != "o" && coords[1] != "0" && coords[2] != "9"){
+          const cellUnderAttack = this.getCell(coords);
+          this.addTargetCell(cellUnderAttack, true);
+        }
       }
+    }
 
-      this.TargetCell.forEach(cell => {
+    else if(piece === "r"){
+      const rookMoves = [
+        { x: -1, y: 0 }, // LEFT
+        { x: +1, y: 0 }, // RIGHT
+        { x: 0, y: -1 }, // DOWN
+        { x: 0, y: +1 }, // UP
+      ];
+      
+      rookMoves.forEach(move => {
+        this.searchDirection(row, column, move.x, move.y);
+      });      
+    }
+    
+    else if(piece === "n"){
+      const moves = [
+        {x: -2, y: -1},
+        {x: -2, y: +1},
+        {x: -1, y: -2},
+        {x: -1, y: +2},
+        {x: +1, y: -2},
+        {x: +1, y: +2},
+        {x: +2, y: -1},
+        {x: +2, y: +1},
+      ];
+      moves.forEach(move => {
+        const coords = this.shiftedLetter(row, move.x) + (parseInt(column) + move.y).toString();
+
+        if(coords[0] != "o" && parseInt(coords[1]) > 0 && parseInt(coords[1]) < 9 && !coords[2]){
+          const NewCell = this.getCell(coords);
+
+          if(NewCell.querySelector("chess-pieces") != null){
+
+            if(NewCell.querySelector("chess-pieces").piece[0] != this.selectedPiece.piece[0]){
+              this.addTargetCell(NewCell, true);
+            }
+          }else{
+            this.addTargetCell(NewCell);
+          }
+        }
+     
+      });
+    }
+    
+    else if(piece === "b"){
+      const diagonalMoves = [
+        { x: +1, y: +1 }, // UP LEFT
+        { x: +1, y: -1 }, // UP RIGHT
+        { x: -1, y: +1 }, // DOWN LEFT
+        { x: -1, y: -1 }, // DOWN RIGHT
+      ];
+      
+      diagonalMoves.forEach(move => {
+        this.searchDirection(row, column, move.x, move.y);
+      });      
+    }
+    
+    else if(piece === "q"){
+      const diagonalMoves = [
+        { x: +1, y: +1 }, // UP LEFT
+        { x: +1, y: -1 }, // UP RIGHT
+        { x: -1, y: +1 }, // DOWN LEFT
+        { x: -1, y: -1 }, // DOWN RIGHT
+      ];
+      
+      diagonalMoves.forEach(move => {
+        this.searchDirection(row, column, move.x, move.y);
+      });      
+
+      const rookMoves = [
+        { x: -1, y: 0 }, // LEFT
+        { x: +1, y: 0 }, // RIGHT
+        { x: 0, y: -1 }, // DOWN
+        { x: 0, y: +1 }, // UP
+      ];
+      
+      rookMoves.forEach(move => {
+        this.searchDirection(row, column, move.x, move.y);
+      });      
+    }
+
+    else if(piece === "k"){
+      const moves = [
+        {x: -1, y: -1},
+        {x: -1, y: +1},
+        {x: -1, y: 0},
+        {x: 0, y: -1},
+        {x: 0, y: +1},
+        {x: +1, y: -1},
+        {x: +1, y: +1},
+        {x: +1, y: 0},
+      ];
+      moves.forEach(move => {
+        const coords = this.shiftedLetter(row, move.x) + (parseInt(column) + move.y).toString();
+
+        if(coords[0] != "o" && parseInt(coords[1]) > 0 && parseInt(coords[1]) < 9){
+          const NewCell = this.getCell(coords);
+
+          if(NewCell.querySelector("chess-pieces") != null){
+
+            if(NewCell.querySelector("chess-pieces").piece[0] != this.selectedPiece.piece[0]){
+              this.addTargetCell(NewCell, true);
+            }
+          }else{
+            this.addTargetCell(NewCell);
+          }
+        }
+     
+      });
+    }
+    
+
+    console.log(this.TargetCell);
+    this.TargetCell.forEach(cell => {
+      if(!watch){
         if(cell.underAttack){
           cell.classList.add("underAttack");
-          console.log("entro");
         }
         cell.appendChild(this.createTargetElement(cell.underAttack));
-      });
+      }else{
+        // console.log(cell);
+      }
+    });
+
+  }
+
+  searchDirection(row,  column, horizonalIncrease, verticalIncrease){
+    while( row != "o" && column != "0" && column != "9" ){
+      row = this.shiftedLetter(row, horizonalIncrease);
+      column = (parseInt(column) + verticalIncrease).toString();
+      if(row != "o" && column != "0" && column != "9"){
+        const cellNext = this.getCell(row + column);
+        if(cellNext.querySelector("chess-pieces") === null){
+          this.addTargetCell(cellNext);
+        }else {
+          this.addTargetCell(cellNext, true);
+          return;
+        }
+      }
+      else{
+        return;
+      }
     }
   }
 
+  movePieces(destiny){
+    this.Turn.next();
+    this.clearObjectiveCells();
+    destiny.innerHTML = /* html */`<chess-pieces piece="${this.selectedPiece.piece}"></chess-pieces>`;
+
+    if(this.selectedPiece.piece[1] === "p" && (destiny.id[1] === "8" || destiny.id[1] === "1") ){
+      this.selectedPiece.remove();
+      this.upGradePawn(destiny);
+    }  
+    else{
+      this.selectedPiece.remove();
+      this.State.neutral();   
+      this.selectedPiece = null;
+    }
+    this.watch();
+  }
+
+  upGradePawn(cell){
+    this.State.waitinForSelection();
+    this.selection = document.createElement("div");
+    const board = document.querySelector(".contenedor");
+    const pieces = ["q", "r", "n", "b"];
+    
+    this.selection.classList.add("selection");
+    board.appendChild(this.selection);
+    
+    pieces.forEach(piece => {
+      const newCell  = document.createElement("chess-cell");  
+      this.selection.appendChild(newCell);
+      
+      const divEnShadow = newCell.shadowRoot.querySelector('.celda');
+      newCell.addEventListener("click", () => { this.onClicks(newCell)}); 
+
+      
+      divEnShadow.innerHTML = /* html */`<chess-pieces piece="${this.selectedPiece.piece[0] + piece}"></chess-pieces>`;
+      
+    });
+    this.selectedPiece = cell;
+  }
+
+  watch(){
+    const chessCells = this.shadowRoot.querySelectorAll("chess-cell");
+    chessCells.forEach(cell => {  
+      const piece = cell.shadowRoot.querySelector("chess-pieces");
+      this.selectedPiece = piece;
+      if(piece){
+        this.showPosition(piece, cell, true);
+      }
+    });
+  }
+
+  // HELP FUNCTION
   addTargetCell(cell,  underAttack = false) {
     if (cell.querySelector("chess-pieces") === null && !underAttack) {
       this.TargetCell.push(cell);
     }
-    else if(underAttack && cell.querySelector("chess-pieces") != null ){
-      cell.underAttack = true;
-      this.TargetCell.push(cell);
+
+    if(cell.querySelector("chess-pieces") != null){
+      if(underAttack && cell.querySelector("chess-pieces").piece[0] != this.selectedPiece.piece[0]){
+        cell.underAttack = true;
+        this.TargetCell.push(cell);
+      }
     }
+    
   }
   
   shiftedLetter(letter, number) {
@@ -251,18 +452,16 @@ class ChessBoard extends HTMLElement {
     objetiveCell.classList.add("objetive");
     return objetiveCell;
   }
-  
-  movePieces(destiny){
-    if(this.TargetCell.includes(destiny)){
-      this.Turn.next();
-      this.clearObjectiveCells();
-      destiny.innerHTML = /* html */`<chess-pieces piece="${this.selectedPiece.piece}"></chess-pieces>`;
-      this.selectedPiece.remove();
-      this.selectedPiece = null;
-      this.State.neutral();   
-    }else{
-      // reproducir audio de error
-    }
+
+  clearObjectiveCells() {
+    this.TargetCell.forEach(cell => {
+      const objective = cell.querySelector("div");
+      cell.removeChild(objective);
+      if(cell.underAttack){
+        cell.classList.remove("underAttack");
+        cell.underAttack = false;
+      }
+    });
   }
 
   // RENDER

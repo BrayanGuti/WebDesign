@@ -1,30 +1,80 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Círculo alrededor de una imagen</title>
-  <style>
-    .image-container {
-      position: relative;
-      display: inline-block;
-    }
+    <title>Z-Index dinámico</title>
+    <style>
+        .componente1 {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            background-color: red;
+            z-index: 1;
+        }
 
-    .circle {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      border: 2px solid red; /* Puedes cambiar el color del borde */
-      border-radius: 50%;
-      box-sizing: border-box;
-      width: 80%; /* Puedes ajustar el tamaño del círculo */
-      height: 80%;
-    }
-  </style>
+        .componente2 {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            background-color: blue;
+            z-index: 2; /* Este valor debe ser mayor que el z-index del componente1 */
+        }
+        .eleccion{
+          position: abs;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          flex-direction: column;
+
+        }
+    </style>
 </head>
 <body>
-  <div class="image-container">
-    <img src="tu_imagen.jpg" alt="Imagen" width="300"> <!-- Ajusta el ancho de la imagen según sea necesario -->
-    <div class="circle"></div>
-  </div>
+    <!-- <div class="componente1">Componente 1</div>
+    <div class="componente2">Componente 2</div> -->
+    <div class="eleccion">
+      
+    </div>
+
+
+
+
+    <script>
+       
+        eleccion = document.querySelector('.eleccion');
+        
+        const componente1 = document.querySelector('.componente1');
+        const componente2 = document.querySelector('.componente2');
+        console.log(componente1.offsetLeft);
+        console.log(componente1.offsetTop);
+        componente2.style.left = componente1.offsetLeft + 2 +"rem";
+        componente2.style.top = componente1.offsetTop + 2 +"rem";
+        
+        
+        
+        // Obtener las coordenadas left y top del elemento
+       
+        // // Función para actualizar z-index de componente2
+        // function updateZIndex() {
+        //     const zIndexComponente1 = window.getComputedStyle(componente1).getPropertyValue('z-index');
+        //     componente2.style.zIndex = parseInt(zIndexComponente1) + 1;
+        // }
+
+        // // Evento para mover el componente1 y actualizar z-index de componente2
+        // componente1.addEventListener('mousedown', function(event) {
+        //     document.addEventListener('mousemove', onMouseMove);
+        //     document.addEventListener('mouseup', onMouseUp);
+        // });
+
+        // function onMouseMove(event) {
+        //     componente1.style.left = event.clientX + 'px';
+        //     componente1.style.top = event.clientY + 'px';
+        //     updateZIndex();
+        // }
+
+        // function onMouseUp() {
+        //     document.removeEventListener('mousemove', onMouseMove);
+        //     document.removeEventListener('mouseup', onMouseUp);
+        // }
+    </script>
 </body>
 </html>

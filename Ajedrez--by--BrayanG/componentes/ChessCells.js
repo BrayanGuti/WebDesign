@@ -33,6 +33,7 @@ class ChessCells extends HTMLElement {
                 background-color: green; 
             }
             
+            
             .underAttack {
                 position: relative;
                 display: inline-block;
@@ -89,7 +90,7 @@ class ChessCells extends HTMLElement {
     render() {
         this.shadowRoot.innerHTML = /* html */`
         <style>${ChessCells.styles}</style>
-        <div class="celda">
+        <div w="null" b="null"  class="celda">
         
         </div>`;
     }

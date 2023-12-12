@@ -12,6 +12,7 @@ class ChessBoard extends HTMLElement {
     this.Turn = new Turn();
     this.TargetCell = [];
     this.selectedPiece = null;
+    this.temporaly = [];
   }
 
   static get styles() {
@@ -29,7 +30,6 @@ class ChessBoard extends HTMLElement {
         --azulClaro: #276E90;
         --negro: #000000;
       }
-
 
       .sombra{
         display: flex;
@@ -168,12 +168,13 @@ class ChessBoard extends HTMLElement {
         this.selectedPiece.classList.add("selected");
       }
     }else if(this.State.state === 2 && this.selection.contains(cell)){
-      console.log(this.selectedPiece);
       this.selectedPiece.innerHTML = /* html */`<chess-pieces piece="${piece.piece}"></chess-pieces>`;
       this.selection.remove();
       this.selection = null;
       this.State.neutral();   
       this.selectedPiece = null;
+      this.TargetCell = [];
+      this.watch();
     }
   }
 
@@ -182,6 +183,7 @@ class ChessBoard extends HTMLElement {
     const piece = chessPiece.piece[1];
     const row = cell.getAttribute("place")[0];
     const column = cell.getAttribute("place")[1];
+    
     if(!watch){
       this.TargetCell = [];
     }
@@ -215,7 +217,12 @@ class ChessBoard extends HTMLElement {
         const coords = this.shiftedLetter(row, i) + advance;
         if(coords[0] != "o" && coords[1] != "0" && coords[2] != "9"){
           const cellUnderAttack = this.getCell(coords);
-          this.addTargetCell(cellUnderAttack, true);
+          if(!watch){
+            this.addTargetCell(cellUnderAttack, true);
+          }
+          else{
+            this.addTargetCell(cellUnderAttack, true, true);
+          }
         }
       }
     }
@@ -313,25 +320,30 @@ class ChessBoard extends HTMLElement {
       ];
       moves.forEach(move => {
         const coords = this.shiftedLetter(row, move.x) + (parseInt(column) + move.y).toString();
-
         if(coords[0] != "o" && parseInt(coords[1]) > 0 && parseInt(coords[1]) < 9){
           const NewCell = this.getCell(coords);
 
           if(NewCell.querySelector("chess-pieces") != null){
 
             if(NewCell.querySelector("chess-pieces").piece[0] != this.selectedPiece.piece[0]){
-              this.addTargetCell(NewCell, true);
+
+              if(!(NewCell.getAttribute("b") == this.changeColor(color) || NewCell.getAttribute("w") == this.changeColor(color))){
+                this.addTargetCell(NewCell, true);
+              }
             }
           }else{
-            this.addTargetCell(NewCell);
+            if(!(NewCell.getAttribute("b") == this.changeColor(color) || NewCell.getAttribute("w") == this.changeColor(color))){
+              this.addTargetCell(NewCell);
+            }
           }
+
         }
      
       });
     }
     
+    
 
-    console.log(this.TargetCell);
     this.TargetCell.forEach(cell => {
       if(!watch){
         if(cell.underAttack){
@@ -339,10 +351,17 @@ class ChessBoard extends HTMLElement {
         }
         cell.appendChild(this.createTargetElement(cell.underAttack));
       }else{
-        // console.log(cell);
+        cell.setAttribute(color, color);
       }
     });
 
+  }
+
+  changeColor(color){
+    if(color === "w"){
+      return "b";
+    }
+    return "w";
   }
 
   searchDirection(row,  column, horizonalIncrease, verticalIncrease){
@@ -365,6 +384,7 @@ class ChessBoard extends HTMLElement {
   }
 
   movePieces(destiny){
+    this.eliminateAttackKing(this.temporaly);
     this.Turn.next();
     this.clearObjectiveCells();
     destiny.innerHTML = /* html */`<chess-pieces piece="${this.selectedPiece.piece}"></chess-pieces>`;
@@ -377,8 +397,10 @@ class ChessBoard extends HTMLElement {
       this.selectedPiece.remove();
       this.State.neutral();   
       this.selectedPiece = null;
+      this.TargetCell = [];
+      this.watch();
     }
-    this.watch();
+    
   }
 
   upGradePawn(cell){
@@ -406,18 +428,30 @@ class ChessBoard extends HTMLElement {
 
   watch(){
     const chessCells = this.shadowRoot.querySelectorAll("chess-cell");
+    this.temporaly = [];
     chessCells.forEach(cell => {  
       const piece = cell.shadowRoot.querySelector("chess-pieces");
       this.selectedPiece = piece;
       if(piece){
+        this.temporaly.push(...this.TargetCell);
+        this.TargetCell = [];       
         this.showPosition(piece, cell, true);
       }
+    });
+    this.temporaly.push(...this.TargetCell);
+    this.TargetCell = [];      
+  }
+
+  eliminateAttackKing(cells){
+    cells.forEach(cell => {
+      cell.setAttribute("w", "null");
+      cell.setAttribute("b", "null");
     });
   }
 
   // HELP FUNCTION
-  addTargetCell(cell,  underAttack = false) {
-    if (cell.querySelector("chess-pieces") === null && !underAttack) {
+  addTargetCell(cell,  underAttack = false, futureUnderAttack = false) {
+    if ( (cell.querySelector("chess-pieces") === null && !underAttack) || (underAttack && futureUnderAttack) ) {
       this.TargetCell.push(cell);
     }
 
